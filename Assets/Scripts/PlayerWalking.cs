@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerWalking : MonoBehaviour
@@ -16,10 +14,19 @@ public class PlayerWalking : MonoBehaviour
     [SerializeField] Transform _groundCheck;
     [SerializeField] LayerMask _groundLayer;
 
+    [SerializeField] CircleCollider2D _foundRobots;
+
+    private Puzzle _puzzleScript;
+    private bool _canAct;
+    
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        if(_foundRobots == null) Debug.LogError("Add CircleCollider2D to " + gameObject);
         if (_rb == null) Debug.LogError("Add Rigidbody2D to " + gameObject);
+
+        _canAct = false;
     }
 
     private void Update()
@@ -29,6 +36,11 @@ public class PlayerWalking : MonoBehaviour
         if (Input.GetButtonDown("Jump") && _onGround)
         {
             Jump();
+        }
+
+        if(Input.GetKeyDown(KeyCode.E) && _canAct)
+        {
+            _puzzleScript.StartPuzzle();
         }
     }
 
@@ -52,6 +64,32 @@ public class PlayerWalking : MonoBehaviour
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Robot"))
+        {
+            Debug.Log("Robot entered ");
+
+            _puzzleScript = collision.GetComponent<Puzzle>();
+            _puzzleScript.player = gameObject;
+            Debug.Log(_puzzleScript.player);
+            _canAct = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.CompareTag("Robot"))
+        {
+            if(_puzzleScript.canDelete == true)
+            {
+                _puzzleScript.player = null;
+                _puzzleScript = null;
+                _canAct = false;
+            }
         }
     }
 }
