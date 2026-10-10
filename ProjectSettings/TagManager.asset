@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Robot
   - Ground
+  - Changeble
   layers:
   - Default
   - TransparentFX
