@@ -14,11 +14,19 @@ public class MoveBetweenLayers : MonoBehaviour
 
     [SerializeField] private SpriteRenderer _playerSprite;
 
+    private PlayerWalking _player;
+
     void Awake()
     {
         gameObject.layer = LayerMask.NameToLayer("Foreground");
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer("Foreground");
+        }
 
         if (_playerSprite == null) Debug.LogError("Add player visual");
+
+        _player = GetComponentInParent<PlayerWalking>();
     }
 
     void Start()
@@ -50,10 +58,18 @@ public class MoveBetweenLayers : MonoBehaviour
         if (_isAtForeground)
         {
             gameObject.layer = LayerMask.NameToLayer("Foreground");
+            foreach (Transform child in transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Foreground");
+            }
         }
         else
         {
             gameObject.layer = LayerMask.NameToLayer("Background");
+            foreach (Transform child in transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Background");
+            }
         }
 
         SetForegroundVisible(_isAtForeground);

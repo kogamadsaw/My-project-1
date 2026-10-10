@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerWalking : MonoBehaviour
@@ -12,9 +10,6 @@ public class PlayerWalking : MonoBehaviour
     private float xAxis;
 
     public bool onGround;
-    [SerializeField] private float _groundCheckRadius = 0.2f;
-    [SerializeField] private Transform _groundCheck;
-    [SerializeField] private LayerMask _groundLayer;
 
     void Awake()
     {
@@ -34,8 +29,6 @@ public class PlayerWalking : MonoBehaviour
 
     void FixedUpdate()
     {
-        onGround = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
-
         _rb.linearVelocity = new Vector2(xAxis * _speed, _rb.linearVelocity.y);
     }
 
@@ -44,14 +37,5 @@ public class PlayerWalking : MonoBehaviour
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0f);
 
         _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (_groundCheck != null)
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
-        }
     }
 }
