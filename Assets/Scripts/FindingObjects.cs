@@ -16,7 +16,10 @@ public class FindingObjects : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && _canAct)
         {
-            _puzzleScript.StartPuzzle();
+            if (!_puzzleScript.done)
+            {
+                _puzzleScript.StartPuzzle();
+            }
         }
     }
 
