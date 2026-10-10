@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FindingObjects : MonoBehaviour
@@ -6,10 +7,18 @@ public class FindingObjects : MonoBehaviour
     private Puzzle _puzzleScript;
     private CircleCollider2D _foundRobots;
 
+    //тот кто вошёл в тригер
+    private PlayerWalking _target;
+    //тот персонаж С которого мы хотим переключится
+    private PlayerWalking _fromWho;
+
+    private bool _canChange;
+
     void Awake()
     {
         _foundRobots = GetComponent<CircleCollider2D>();
         if (_foundRobots == null) Debug.LogError("Add CircleCollider2D to " + gameObject);
+        _fromWho = GetComponentInParent<PlayerWalking>();
     }
 
     void Update()
@@ -20,6 +29,11 @@ public class FindingObjects : MonoBehaviour
             {
                 _puzzleScript.StartPuzzle();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Tab) && _canChange && _target != null)
+        {
+            _fromWho.SwitchToRobot(_target);
         }
     }
 
@@ -34,6 +48,16 @@ public class FindingObjects : MonoBehaviour
             Debug.Log(_puzzleScript.player);
             _canAct = true;
         }
+
+        if (collision.CompareTag("Changeble"))
+        {
+            _target = collision.GetComponent<PlayerWalking>();
+            if(_target != null && _target != _fromWho)
+            {
+                _canChange = true;
+                Debug.Log("Robot entered");
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -46,6 +70,18 @@ public class FindingObjects : MonoBehaviour
                 _puzzleScript = null;
                 _canAct = false;
             }
+        }
+
+        if (other.CompareTag("Changeble"))
+        {
+            PlayerWalking exitingRobot = other.GetComponent<PlayerWalking>();
+            if(exitingRobot == _target)
+            {
+                _target = null;
+                _canChange = false;
+            }
+
+            exitingRobot = null;
         }
     }
 }
