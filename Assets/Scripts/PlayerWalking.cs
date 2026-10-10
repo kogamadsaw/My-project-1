@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PlayerWalking : MonoBehaviour
 {
-    Rigidbody2D _rb;
+    private Rigidbody2D _rb;
 
-    [SerializeField] float _speed = 10f;
-    [SerializeField] float _jumpForce = 10f;
+    [SerializeField] private float _speed = 10f;
+    [SerializeField] private float _jumpForce = 10f;
 
-    float xAxis;
+    private float xAxis;
 
-    [SerializeField] private bool _onGround;
+    public bool onGround;
     [SerializeField] private float _groundCheckRadius = 0.2f;
-    [SerializeField] Transform _groundCheck;
-    [SerializeField] LayerMask _groundLayer;
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private LayerMask _groundLayer;
 
     void Awake()
     {
@@ -26,7 +26,7 @@ public class PlayerWalking : MonoBehaviour
     {
         xAxis = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && _onGround)
+        if (Input.GetButtonDown("Jump") && onGround)
         {
             Jump();
         }
@@ -34,7 +34,7 @@ public class PlayerWalking : MonoBehaviour
 
     void FixedUpdate()
     {
-        _onGround = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+        onGround = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
 
         _rb.linearVelocity = new Vector2(xAxis * _speed, _rb.linearVelocity.y);
     }
