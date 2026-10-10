@@ -5,8 +5,8 @@ public class PlayerWalking : MonoBehaviour
 {
     private Rigidbody2D _rb;
 
-    [SerializeField] public float speed = 10f;
-    [SerializeField] public float jumpForce = 10f;
+    [SerializeField] public float speed = 4f;
+    [SerializeField] public float jumpForce = 6f;
 
     private float xAxis;
 
@@ -19,7 +19,7 @@ public class PlayerWalking : MonoBehaviour
 
     //надо поставить галочку у персонажа с которого надо накчинать
     [SerializeField] private bool _isActiveAtStart = false;
-    private bool _isCurrentPlayer; 
+    [HideInInspector] public bool isCurrentPlayer;
 
     void Awake()
     {
@@ -43,13 +43,13 @@ public class PlayerWalking : MonoBehaviour
         }
         else
         {
-            _isCurrentPlayer = false;
+            isCurrentPlayer = false;
         }
     }
 
     private void Update()
     {
-        if(_isCurrentPlayer)
+        if(isCurrentPlayer)
         {
             xAxis = Input.GetAxisRaw("Horizontal");
 
@@ -62,7 +62,7 @@ public class PlayerWalking : MonoBehaviour
 
     public void SwitchToRobot(PlayerWalking target)
     {
-        this._isCurrentPlayer = false;
+        this.isCurrentPlayer = false;
         this.xAxis = 0f;
 
         Input.ResetInputAxes(); 
@@ -77,7 +77,7 @@ public class PlayerWalking : MonoBehaviour
 
     public void ActivateCharacter()
     {
-        this._isCurrentPlayer = true;
+        this.isCurrentPlayer = true;
 
         if (_vCam != null)
         {

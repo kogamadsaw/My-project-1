@@ -374,7 +374,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3710701974497898048}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1127,11 +1127,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4166193396500313625}
-  - component: {fileID: 5793262925549898943}
-  - component: {fileID: 6004367293027185200}
-  - component: {fileID: 3865039016305995209}
-  - component: {fileID: 8120158188516553582}
-  - component: {fileID: 5453325082009072082}
+  - component: {fileID: 3914901277794145699}
+  - component: {fileID: 501553731272919461}
+  - component: {fileID: 2288778911927381785}
+  - component: {fileID: 1272473613702626703}
+  - component: {fileID: 1062680824756505922}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1158,7 +1158,7 @@ Transform:
   - {fileID: 3902026818731962038}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5793262925549898943
+--- !u!61 &3914901277794145699
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1204,7 +1204,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &6004367293027185200
+--- !u!50 &501553731272919461
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -1231,7 +1231,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3865039016305995209
+--- !u!114 &2288778911927381785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1240,13 +1240,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9072427148618657053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dabf6b9259b40e842b87ac576b557803, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bc611df5f3f6c94c90578ef75089f3e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerWalking
-  _speed: 5
-  _jumpForce: 6
-  onGround: 0
---- !u!114 &8120158188516553582
+  m_EditorClassIdentifier: Assembly-CSharp::OpenPauseMenu
+  _pauseMenu: {fileID: 8277603268527752793}
+--- !u!114 &1272473613702626703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1264,7 +1262,7 @@ MonoBehaviour:
   _foregroundLayerObject: {fileID: 0}
   _fadeAlpha: 0.1
   _playerSprite: {fileID: 8183252792286508771}
---- !u!114 &5453325082009072082
+--- !u!114 &1062680824756505922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1273,7 +1271,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 9072427148618657053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc611df5f3f6c94c90578ef75089f3e, type: 3}
+  m_Script: {fileID: 11500000, guid: dabf6b9259b40e842b87ac576b557803, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OpenPauseMenu
-  _pauseMenu: {fileID: 8277603268527752793}
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWalking
+  speed: 4
+  jumpForce: 4
+  onGround: 0
+  _vCam: {fileID: 0}
+  _isActiveAtStart: 1
+  isCurrentPlayer: 0
