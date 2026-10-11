@@ -9,7 +9,7 @@ public class Puzzle : MonoBehaviour
     //DAMN!!! IS IT CANVAS VARIABLE?
     private Canvas _puzleCanvas;
 
-    [HideInInspector] public GameObject player;
+    [HideInInspector] public PlayerWalking player;
 
     //can you change variables to null (in FindingObjects)
     [HideInInspector] public bool canDelete = true;
@@ -71,8 +71,8 @@ public class Puzzle : MonoBehaviour
         canDelete = false;
 
         _puzleCanvas.enabled = true;
-        
-        player.SetActive(false);
+
+        player.isCurrentPlayer = false;
 
         _correctCount = _correctToPass;
 
@@ -92,7 +92,7 @@ public class Puzzle : MonoBehaviour
 
     public void ExitPuzzle()
     {
-        player.SetActive(true);
+        player.isCurrentPlayer = true;
         _puzleCanvas.enabled = false;
         canDelete = true;
     }
@@ -197,7 +197,7 @@ public class Puzzle : MonoBehaviour
         int randomNumber;
         for (int j = 0; j < 2; j++)
         {
-            char[] charArray = new char[3];
+            char[] charArray = new char[2];
 
             for (int i = 0; i < 2; i++)
             {

@@ -62,12 +62,12 @@ public class FindingObjects : MonoBehaviour
         return best;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Task"))
         {
             _puzzleScript = collision.GetComponent<Puzzle>();
-            _puzzleScript.player = transform.parent.gameObject;
+            _puzzleScript.player = GetComponentInParent<PlayerWalking>();
             _canAct = true;
         }
 

@@ -46,7 +46,24 @@ public class PlayerWalking : MonoBehaviour
 
         transform.localScale = new Vector3(1, _robotSettings.playerHeight, 1);
 
-        if(isActiveAtStart)
+        Collider2D myCollider = GetComponent<Collider2D>();
+        if (myCollider != null)
+        {
+            PlayerWalking[] allRobot = FindObjectsByType<PlayerWalking>();
+            foreach (var robot in allRobot)
+            {
+                if (robot != this)
+                {
+                    Collider2D otherCollider = robot.GetComponent<Collider2D>();
+                    if (otherCollider != null)
+                    {
+                        Physics2D.IgnoreCollision(myCollider, otherCollider, true);
+                    }
+                }
+            }
+        }
+
+        if (isActiveAtStart)
         {
             currentPlayer = _movebleCharactersList.IndexOf(this);
             ActivateCharacter();
@@ -106,7 +123,7 @@ public class PlayerWalking : MonoBehaviour
 
     public void ActivateCharacter()
     {
-        this.isCurrentPlayer = true;
+        isCurrentPlayer = true;
 
         if (_vCam != null)
         {

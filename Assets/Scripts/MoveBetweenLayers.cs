@@ -33,7 +33,7 @@ public class MoveBetweenLayers : MonoBehaviour
 
     void Start()
     {
-        _allSprites = FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None);
+        _allSprites = FindObjectsByType<SpriteRenderer>();
 
         SetForegroundVisible(_isAtForeground);
     }
