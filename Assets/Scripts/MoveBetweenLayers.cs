@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MoveBetweenLayers : MonoBehaviour
 {
@@ -35,6 +34,8 @@ public class MoveBetweenLayers : MonoBehaviour
     void Start()
     {
         _allSprites = FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None);
+
+        SetForegroundVisible(_isAtForeground);
     }
 
     void Update()
@@ -88,7 +89,8 @@ public class MoveBetweenLayers : MonoBehaviour
             {
                 Transform parent = obj.transform.parent;
 
-                if (parent.CompareTag("Player")) sprite.sortingOrder = targetLayer + 1;
+                if (obj.CompareTag("Player") || parent.CompareTag("Player")) sprite.sortingOrder = targetLayer + 1;
+                else if (obj.CompareTag("Wall") || parent.CompareTag("Wall")) sprite.sortingOrder = targetLayer - 1;
                 else sprite.sortingOrder = targetLayer;
 
                 if (parent == null || !(parent.GetComponentInParent<PlayerWalking>() != null && parent.GetComponentInParent<PlayerWalking>().isCurrentPlayer))

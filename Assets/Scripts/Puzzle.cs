@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.InputSystem.InputControlScheme;
 
 public class Puzzle : MonoBehaviour
 {
+    private Coroutine _timerCoroutine;
+
     //DAMN!!! IS IT CANVAS VARIABLE?
     private Canvas _puzleCanvas;
 
@@ -86,7 +86,8 @@ public class Puzzle : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(TimerTick());
+        if (_timerCoroutine != null) StopCoroutine(_timerCoroutine);
+        _timerCoroutine = StartCoroutine(TimerTick());
     }
 
     public void ExitPuzzle()
@@ -106,10 +107,7 @@ public class Puzzle : MonoBehaviour
             _timeRemaining -= Time.deltaTime;
         }
 
-        if (_timeRemaining <= 0)
-        {
-            CheckAnswer("");
-        }
+        CheckAnswer("");
     }
 
     private void OnInputSubmitted(string text)
@@ -122,41 +120,35 @@ public class Puzzle : MonoBehaviour
 
     private void CheckAnswer(string playerText)
     {
+        if (_timerCoroutine != null)
+        {
+            StopCoroutine(_timerCoroutine);
+            _timerCoroutine = null;
+        }
+
         if (playerText.Trim() == _taskText.Trim())
         {
             _correctCount--;
 
             if (_correctCount <= 0)
             {
-                StopCoroutine(TimerTick());
                 done = true;
                 ExitPuzzle();
-            }
-            else
-            {
-                switch (task)
-                {
-                    case taskType.InputTask:
-                        Task1();
-                        break;
-                    case taskType.MathTask:
-                        Task2();
-                        break;
-                }
+                return;
             }
         }
-        else
+
+        switch (task)
         {
-            switch (task)
-            {
-                case taskType.InputTask:
-                    Task1();
-                    break;
-                case taskType.MathTask:
-                    Task2();
-                    break;
-            }
+            case taskType.InputTask:
+                Task1();
+                break;
+            case taskType.MathTask:
+                Task2();
+                break;
         }
+
+        _timerCoroutine = StartCoroutine(TimerTick());
     }
 
     private void Task1()
