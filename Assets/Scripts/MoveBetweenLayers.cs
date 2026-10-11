@@ -7,17 +7,13 @@ public class MoveBetweenLayers : MonoBehaviour
     [SerializeField] private float _zBackground = 2f;
     private bool _isAtForeground = true;
     public bool canChangeLayer;
-
-    [SerializeField] private GameObject _foregroundLayerObject;
     [Range(0f, 1f)][SerializeField] private float _fadeAlpha = 0.2f;
-
-    private SpriteRenderer[] _foregroundSprites;
 
     [SerializeField] private SpriteRenderer _playerSprite;
 
-    private PlayerWalking _player;
-
     SpriteRenderer[] _allSprites;
+
+    int _playerLayer;
 
     void Awake()
     {
@@ -29,16 +25,11 @@ public class MoveBetweenLayers : MonoBehaviour
 
         if (_playerSprite == null) Debug.LogError("Add player visual");
 
-        _player = GetComponentInParent<PlayerWalking>();
+        _playerLayer = _playerSprite.sortingOrder;
     }
 
     void Start()
     {
-        if (_foregroundLayerObject != null)
-        {
-            _foregroundSprites = _foregroundLayerObject.GetComponentsInChildren<SpriteRenderer>();
-        }
-
         _allSprites = FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None);
     }
 
@@ -82,10 +73,8 @@ public class MoveBetweenLayers : MonoBehaviour
 
     private void SetForegroundVisible(bool isVisible)
     {
-        if (_foregroundSprites == null) return;
-
         float targetAlpha = isVisible ? 1f : _fadeAlpha;
-        int targetLayer = isVisible ? _playerSprite.sortingOrder - 1 : _playerSprite.sortingOrder + 1;
+        int targetLayer = isVisible ? _playerLayer - 1 : _playerLayer + 1;
 
         foreach (SpriteRenderer sprite in _allSprites)
         {
@@ -95,12 +84,13 @@ public class MoveBetweenLayers : MonoBehaviour
             {
                 Transform parent = obj.transform.parent;
 
+                if (parent.CompareTag("Player")) sprite.sortingOrder = targetLayer + 1;
+                else sprite.sortingOrder = targetLayer;
+
                 if (parent == null || !(parent.GetComponentInParent<PlayerWalking>() != null && parent.GetComponentInParent<PlayerWalking>().isCurrentPlayer))
                 {
                     Color currentColor = sprite.color;
                     sprite.color = new Color(currentColor.r, currentColor.g, currentColor.b, targetAlpha);
-
-                    sprite.sortingOrder = targetLayer;
                 }
             }
         }
