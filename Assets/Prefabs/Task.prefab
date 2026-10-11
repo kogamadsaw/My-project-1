@@ -293,12 +293,18 @@ MonoBehaviour:
   _puzleCanvas: {fileID: 9096180187080339559}
   player: {fileID: 0}
   canDelete: 1
+  _terminalNumber: {fileID: 446124596014867263}
+  _terminalNumberText: 
   _taskTextUI: {fileID: 3731605330029628736}
   _correctCountUI: {fileID: 6373187998726368617}
   _timerText: {fileID: 1429086558217109985}
   _inputField: {fileID: 6106110579679046099}
-  _timerTime: 20
+  _correctToPass: 0
+  _alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789!@#$%^&*()_+-=|;'<>,.[]{}
+  _numbers: 123456789
+  _signs: +-
   done: 0
+  task: 0
 --- !u!1 &986380708129401985
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,7 +834,7 @@ GameObject:
   - component: {fileID: 2557898453904842846}
   - component: {fileID: 4937825419390378342}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Leave Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

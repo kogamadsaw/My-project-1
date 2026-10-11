@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWalking
   speed: 4
-  jumpForce: 4
+  jumpForce: 6
   onGround: 0
   _vCam: {fileID: 0}
   _isActiveAtStart: 1
