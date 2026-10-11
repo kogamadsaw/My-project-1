@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8360665728066636434}
   m_Layer: 0
   m_Name: Task
-  m_TagString: Robot
+  m_TagString: Task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,16 +290,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c97c312684bffb449c2dd6e57454d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Puzzle
-  _puzleCanvas: {fileID: 9096180187080339559}
   player: {fileID: 0}
   canDelete: 1
   _terminalNumber: {fileID: 446124596014867263}
   _terminalNumberText: 
   _taskTextUI: {fileID: 3731605330029628736}
   _correctCountUI: {fileID: 6373187998726368617}
-  _timerText: {fileID: 1429086558217109985}
-  _inputField: {fileID: 6106110579679046099}
   _correctToPass: 0
+  _timerText: {fileID: 1429086558217109985}
+  _time: 20
+  _inputField: {fileID: 6106110579679046099}
   _alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789!@#$%^&*()_+-=|;'<>,.[]{}
   _numbers: 123456789
   _signs: +-
@@ -858,7 +858,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -87.50012, y: -37.5}
-  m_SizeDelta: {x: 75, y: 25}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1235993635246868720
 CanvasRenderer:
@@ -881,7 +881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.11320752, b: 0.000000006747694, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1037,9 +1037,9 @@ RectTransform:
   m_Children:
   - {fileID: 2180611111087788957}
   - {fileID: 9185396508740103931}
+  - {fileID: 364494958128869669}
   - {fileID: 6204128906959269529}
   - {fileID: 5085377518696665280}
-  - {fileID: 364494958128869669}
   - {fileID: 5453134121353012634}
   m_Father: {fileID: 8223000177823303315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1248,7 +1248,7 @@ MonoBehaviour:
       m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0.43678153, b: 1, a: 0.7529412}
+  m_SelectionColor: {r: 0, g: 0.49019608, b: 0.49019608, a: 1}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Leave
+  m_text: '> Leave'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

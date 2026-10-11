@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Robot
   - Ground
   - Changeble
+  - Task
   layers:
   - Default
   - TransparentFX

@@ -4,32 +4,72 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    [SerializeField] private Button _startButton;
-    [SerializeField] private Button _optionsButton;
+    [HideInInspector] public bool canOpenMenu = true;
+    private Canvas _canvas;
 
-    [SerializeField] private Canvas _optionsCanvas;
+    [SerializeField] private bool _isPauseMenu;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _options;
+
+    private void Awake()
     {
-        _startButton.onClick.AddListener(StartGame);
-        _optionsButton.onClick.AddListener(SwitchToOptions);
+        _canvas = GetComponent<Canvas>();
+
+        _options.SetActive(false);
+        _menu.SetActive(true);
+
+        if (_isPauseMenu)
+        {
+            _canvas.enabled = false;
+            canOpenMenu = true;
+        }
     }
 
-    private void StartGame()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && canOpenMenu && _isPauseMenu)
+        {
+            OpenPause();
+        }
+    }
+
+    //main menu options
+    public void StartGame()
     {
         SceneManager.LoadScene("SampleScene");
     }
 
-    private void SwitchToOptions()
+    public void SwitchToOptions()
     {
-        _optionsCanvas.gameObject.SetActive(true);
-        gameObject.SetActive(false);
+        _options.SetActive(true);
+        _menu.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SwitchToMainMenu()
     {
-        
+        _options.SetActive(false);
+        _menu.SetActive(true);
+    }
+
+    //pause menu options
+    public void ContinueGame()
+    {
+        _canvas.enabled = false;
+        canOpenMenu = true;
+        Time.timeScale = 1f;
+    }
+
+    public void ExitToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OpenPause()
+    {
+        _canvas.enabled = true;
+        canOpenMenu = false;
+        Time.timeScale = 0f;
     }
 }

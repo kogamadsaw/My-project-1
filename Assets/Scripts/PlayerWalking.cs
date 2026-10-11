@@ -3,48 +3,49 @@ using UnityEngine;
 
 public class PlayerWalking : MonoBehaviour
 {
+    private RobotSettings _robotSettings;
+
     private Rigidbody2D _rb;
 
-    [SerializeField] public float speed = 4f;
-    [SerializeField] public float jumpForce = 6f;
-
+    //input axis variable
     private float xAxis;
 
-    public bool onGround;
-    public bool canDash = false;
+    //is player on ground
+    [HideInInspector] public bool onGround;
 
-    public float dashSpeed = 20f;
-    public float dashDuration = 0.2f;
+    //dash variables
     private float dashTimer;
     private float dashDirection;
-    public float playerHeight = 2;
 
+    [Header("Camera")]
     [SerializeField] private Unity.Cinemachine.CinemachineCamera _vCam;
 
-    private static List <PlayerWalking> _movebleCharactersList = new List<PlayerWalking>();
-    private static int currentPlayer = 0;
-
-    //надо поставить галочку у персонажа с которого надо накчинать
+    [Header("Check the box next to the character you want to start with.")]
     public bool isActiveAtStart = false;
     [HideInInspector] public bool isCurrentPlayer;
+    private static List<PlayerWalking> _movebleCharactersList = new List<PlayerWalking>();
+    private static int currentPlayer = 0;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         if (_rb == null) Debug.LogError("Add Rigidbody2D to " + gameObject);
+
         if (_movebleCharactersList.Count > 0 && _movebleCharactersList[0] == null)
         {
             _movebleCharactersList.Clear();
             currentPlayer = 0;
         }
+
         _movebleCharactersList.Add(this);
-        Debug.Log(_movebleCharactersList.Count);
-        Debug.Log(canDash);
     }
 
     void Start()
     {
-        transform.localScale = new Vector3(1, playerHeight, 1);
+        _robotSettings = GetComponent<RobotSettings>();
+
+        transform.localScale = new Vector3(1, _robotSettings.playerHeight, 1);
+
         if(isActiveAtStart)
         {
             currentPlayer = _movebleCharactersList.IndexOf(this);
@@ -64,11 +65,11 @@ public class PlayerWalking : MonoBehaviour
 
             if(xAxis < 0)
             {
-                transform.localScale = new Vector3(1, playerHeight, 1);
+                transform.localScale = new Vector3(1, _robotSettings.playerHeight, 1);
             }
             else if (xAxis > 0)
             {
-                transform.localScale = new Vector3(-1, playerHeight, 1);
+                transform.localScale = new Vector3(-1, _robotSettings.playerHeight, 1);
             }
 
             if (Input.GetButtonDown("Jump") && onGround)
@@ -76,7 +77,7 @@ public class PlayerWalking : MonoBehaviour
                 Jump();
             }
 
-            if(Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            if(Input.GetKeyDown(KeyCode.LeftShift) && _robotSettings.canDash)
             {
                 Dash();
             }
@@ -85,7 +86,6 @@ public class PlayerWalking : MonoBehaviour
 
     public void SwitchToRobot(PlayerWalking target)
     {
-
         this.xAxis = 0f;
 
         foreach (var character in _movebleCharactersList)
@@ -96,6 +96,7 @@ public class PlayerWalking : MonoBehaviour
         Input.ResetInputAxes(); 
 
         int targetRobot = _movebleCharactersList.IndexOf(target);
+
         if(targetRobot != -1)
         {
             currentPlayer = targetRobot;
@@ -115,6 +116,7 @@ public class PlayerWalking : MonoBehaviour
         else
         {
             var mainVCam = FindAnyObjectByType<Unity.Cinemachine.CinemachineCamera>();
+
             if (mainVCam != null)
             {
                 mainVCam.Follow = this.transform;
@@ -128,25 +130,24 @@ public class PlayerWalking : MonoBehaviour
         if (dashTimer > 0)
         {
             dashTimer -= Time.fixedDeltaTime;
-            _rb.linearVelocity = new Vector2(dashDirection * dashSpeed, 0f);
-            Debug.Log(dashTimer);
+            _rb.linearVelocity = new Vector2(dashDirection * _robotSettings.dashSpeed, 0f);
         }
         else
         {
-            _rb.linearVelocity = new Vector2(xAxis * speed, _rb.linearVelocity.y);
+            _rb.linearVelocity = new Vector2(xAxis * _robotSettings.speed, _rb.linearVelocity.y);
         }
     }
 
     void Dash()
     {
         dashDirection = xAxis != 0 ? Mathf.Sign(xAxis) : (transform.localScale.x > 0 ? 1f : -1f);
-        dashTimer = dashDuration;
+        dashTimer = _robotSettings.dashDuration;
     }
 
     void Jump()
     {
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0f);
 
-        _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        _rb.AddForce(Vector2.up * _robotSettings.jumpForce, ForceMode2D.Impulse);
     }
 }

@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class FindingObjects : MonoBehaviour
 {
-    private bool _canAct;
     private Puzzle _puzzleScript;
-    private CircleCollider2D _foundRobots;
 
-    //тот кто вошёл в тригер
+    private CircleCollider2D _foundRobots;
+    private bool _canAct;
+
+    //The person who triggered the event
     private PlayerWalking _target;
-    //тот персонаж С которого мы хотим переключится
+
+    //The character we want to switch away from
     private PlayerWalking _fromWho;
 
     private readonly List<PlayerWalking> _inRange = new List<PlayerWalking>();
@@ -62,13 +64,10 @@ public class FindingObjects : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Robot"))
+        if (collision.CompareTag("Task"))
         {
-            Debug.Log("Robot entered ");
-
             _puzzleScript = collision.GetComponent<Puzzle>();
             _puzzleScript.player = transform.parent.gameObject;
-            Debug.Log(_puzzleScript.player);
             _canAct = true;
         }
 
@@ -82,7 +81,7 @@ public class FindingObjects : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Robot"))
+        if (other.CompareTag("Task"))
         {
             if (_puzzleScript.canDelete == true)
             {

@@ -6,41 +6,56 @@ using static UnityEngine.InputSystem.InputControlScheme;
 
 public class Puzzle : MonoBehaviour
 {
-    [SerializeField] private Canvas _puzleCanvas;
+    //DAMN!!! IS IT CANVAS VARIABLE?
+    private Canvas _puzleCanvas;
 
     [HideInInspector] public GameObject player;
+
+    //can you change variables to null (in FindingObjects)
     [HideInInspector] public bool canDelete = true;
 
+    [Header("Terminal number (top left)")]
     [SerializeField] private TMP_Text _terminalNumber;
     [SerializeField] private string _terminalNumberText = "";
 
+    [Header("Task text options")]
     [SerializeField] private TMP_Text _taskTextUI;
-    [SerializeField] private TMP_Text _correctCountUI;
-    [SerializeField] private TMP_Text _timerText;
     private string _taskText;
 
-    [SerializeField] private TMP_InputField _inputField;
+    [Header("Correct answers options")]
+    [SerializeField] private TMP_Text _correctCountUI;
+    [Range(0, 10)][SerializeField] private int _correctToPass = 3;
+    private int _correctCount;
+
+    [Header("Timer options")]
+    [SerializeField] private TMP_Text _timerText;
+    [SerializeField] private float _time = 20;
     private float _timeRemaining;
 
-    private int _correctCount;
-    [SerializeField] private int _correctToPass;
+    [Header("Input field")]
+    [SerializeField] private TMP_InputField _inputField;
 
+    [Header("Alphabet")]
     [SerializeField] private string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789!@#$%^&*()_+-=|;'<>,.[]{}";
 
+    [Header("Math problems options")]
     [SerializeField] private string _numbers = "123456789";
     [SerializeField] private string _signs = "+-";
 
+    //is task done
     [HideInInspector] public bool done;
 
+    [Header("Task type")]
+    public taskType task;
     public enum taskType
     {
-        Task1,
-        Task2
+        InputTask,
+        MathTask
     }
-    public taskType task;
-
+    
     void Awake()
     {
+        _puzleCanvas = GetComponentInChildren<Canvas>();
         _puzleCanvas.enabled = false;
 
         _inputField.onEndEdit.AddListener(OnInputSubmitted);
@@ -53,18 +68,20 @@ public class Puzzle : MonoBehaviour
 
     public void StartPuzzle()
     {
-        _puzleCanvas.enabled = true;
         canDelete = false;
+
+        _puzleCanvas.enabled = true;
+        
         player.SetActive(false);
 
         _correctCount = _correctToPass;
 
         switch (task)
         {
-            case taskType.Task1:
+            case taskType.InputTask:
                 Task1();
                 break;
-            case taskType.Task2:
+            case taskType.MathTask:
                 Task2();
                 break;
         }
@@ -119,10 +136,10 @@ public class Puzzle : MonoBehaviour
             {
                 switch (task)
                 {
-                    case taskType.Task1:
+                    case taskType.InputTask:
                         Task1();
                         break;
-                    case taskType.Task2:
+                    case taskType.MathTask:
                         Task2();
                         break;
                 }
@@ -132,10 +149,10 @@ public class Puzzle : MonoBehaviour
         {
             switch (task)
             {
-                case taskType.Task1:
+                case taskType.InputTask:
                     Task1();
                     break;
-                case taskType.Task2:
+                case taskType.MathTask:
                     Task2();
                     break;
             }
@@ -144,7 +161,7 @@ public class Puzzle : MonoBehaviour
 
     private void Task1()
     {
-        _timeRemaining = 15;
+        _timeRemaining = _time;
 
         _inputField.text = "";
         _inputField.ActivateInputField();
@@ -175,7 +192,7 @@ public class Puzzle : MonoBehaviour
         _inputField.ActivateInputField();
         _correctCountUI.text = _correctCount.ToString();
 
-        _timeRemaining = 20;
+        _timeRemaining = _time;
 
         string number1 = "";
         string number2 = "";
@@ -235,8 +252,6 @@ public class Puzzle : MonoBehaviour
                 _taskText = (num1-num2).ToString();
                 break;
         }
-
-        Debug.Log(_taskText);
 
         _taskTextUI.text = number1 + "" + sign + "" + number2;
     }

@@ -2,52 +2,84 @@ using UnityEngine;
 
 public class RobotSettings : MonoBehaviour
 {
-    private PlayerWalking _walkingSettings;
 
-    public enum Type
+    //Speed variables
+    [HideInInspector] public float speed;
+
+    //Jump variables
+    [HideInInspector] public float jumpForce;
+
+    //Dash variables
+    [HideInInspector] public bool canDash = false;
+    [HideInInspector] public float dashSpeed;
+    [HideInInspector] public float dashDuration;
+
+    //Height variables
+    [HideInInspector] public float playerHeight;
+
+    public enum robotType
     {
-        DEFAULT,
-        HEAVY,
-        FAST,
-        IT_PEDIA
+        Default,
+        Heavy,
+        Fast,
+        IT_Pedia
     }
 
-    public Type robotType;
+    [Header("Robot type")]
+    public robotType robot;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        _walkingSettings = GetComponent<PlayerWalking>();
-        switch (robotType)
+        switch (robot)
         {
-            case Type.DEFAULT:
-                _walkingSettings.speed = 4;
-                _walkingSettings.jumpForce = 4;
+            case robotType.Default:
+                speed = 4;
+                jumpForce = 8;
+
+                canDash = false;
+
+                playerHeight = 2f;
                 break;
-            case Type.HEAVY:
-                _walkingSettings.speed = 2;
-                _walkingSettings.jumpForce = 2;
+            case robotType.Heavy:
+                speed = 2;
+                jumpForce = 4;
+
+                canDash = false;
+
+                playerHeight = 2f;
                 break;
 
-            case Type.FAST:
-                _walkingSettings.speed = 8;
-                _walkingSettings.jumpForce = 8;
-                _walkingSettings.canDash = true;
+            case robotType.Fast:
+                speed = 8;
+                jumpForce = 9;
+
+                canDash = true;
+                dashSpeed = 20f;
+                dashDuration = 0.2f;
+
+                playerHeight = 2f;
                 break;
 
-            case Type.IT_PEDIA:
-                _walkingSettings.playerHeight = 1;
-                _walkingSettings.speed = 6;
-                _walkingSettings.jumpForce = 6;
-                
+            case robotType.IT_Pedia:
+                speed = 6;
+                jumpForce = 8;
+
+                canDash = false;
+
+                playerHeight = 1f;
                 break;
 
             default:
-            break;
+                break;
         }
+
     }
 
-    // Update is called once per frame
+        void Start()
+    {
+        
+    }
+
     void Update()
     {
         

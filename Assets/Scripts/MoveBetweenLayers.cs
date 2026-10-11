@@ -3,17 +3,21 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MoveBetweenLayers : MonoBehaviour
 {
+    [Header("Position on z axis for background and foreground")]
     [SerializeField] private float _zForeground = 0f;
     [SerializeField] private float _zBackground = 2f;
+
+    [Header("Fade for foreground")]
+    [Range(0f, 1f)][SerializeField] private float _fadeAlpha = 0.2f;
     private bool _isAtForeground = true;
     public bool canChangeLayer;
-    [Range(0f, 1f)][SerializeField] private float _fadeAlpha = 0.2f;
 
+    [Header("Player's sprite")]
     [SerializeField] private SpriteRenderer _playerSprite;
+    private int _playerLayer;
+
 
     SpriteRenderer[] _allSprites;
-
-    int _playerLayer;
 
     void Awake()
     {
