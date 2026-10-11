@@ -7,8 +7,9 @@ public class RobotSettings : MonoBehaviour
     public enum Type
     {
         DEFAULT,
-        HEVY,
-        FAST
+        HEAVY,
+        FAST,
+        IT_PEDIA
     }
 
     public Type robotType;
@@ -20,8 +21,10 @@ public class RobotSettings : MonoBehaviour
         switch (robotType)
         {
             case Type.DEFAULT:
+                _walkingSettings.speed = 4;
+                _walkingSettings.jumpForce = 4;
                 break;
-            case Type.HEVY:
+            case Type.HEAVY:
                 _walkingSettings.speed = 2;
                 _walkingSettings.jumpForce = 2;
                 break;
@@ -29,6 +32,14 @@ public class RobotSettings : MonoBehaviour
             case Type.FAST:
                 _walkingSettings.speed = 8;
                 _walkingSettings.jumpForce = 8;
+                _walkingSettings.canDash = true;
+                break;
+
+            case Type.IT_PEDIA:
+                _walkingSettings.playerHeight = 1;
+                _walkingSettings.speed = 6;
+                _walkingSettings.jumpForce = 6;
+                
                 break;
 
             default:

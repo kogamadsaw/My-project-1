@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if(collision.CompareTag("Player") && collision.GetComponent<PlayerWalking>().isCurrentPlayer)
         {
             collision.GetComponent<MoveBetweenLayers>().canChangeLayer = true;
         }
@@ -12,7 +12,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision.GetComponent<PlayerWalking>().isCurrentPlayer)
         {
             collision.GetComponent<MoveBetweenLayers>().canChangeLayer = false;
         }
