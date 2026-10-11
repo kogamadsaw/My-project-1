@@ -11,6 +11,13 @@ public class PlayerWalking : MonoBehaviour
     private float xAxis;
 
     public bool onGround;
+    public bool canDash = false;
+
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.2f;
+    private float dashTimer;
+    private float dashDirection;
+    public float playerHeight = 2;
 
     [SerializeField] private Unity.Cinemachine.CinemachineCamera _vCam;
 
@@ -18,7 +25,7 @@ public class PlayerWalking : MonoBehaviour
     private static int currentPlayer = 0;
 
     //надо поставить галочку у персонажа с которого надо накчинать
-    [SerializeField] private bool _isActiveAtStart = false;
+    public bool isActiveAtStart = false;
     [HideInInspector] public bool isCurrentPlayer;
 
     void Awake()
@@ -32,11 +39,13 @@ public class PlayerWalking : MonoBehaviour
         }
         _movebleCharactersList.Add(this);
         Debug.Log(_movebleCharactersList.Count);
+        Debug.Log(canDash);
     }
 
     void Start()
     {
-        if(_isActiveAtStart)
+        transform.localScale = new Vector3(1, playerHeight, 1);
+        if(isActiveAtStart)
         {
             currentPlayer = _movebleCharactersList.IndexOf(this);
             ActivateCharacter();
@@ -53,17 +62,36 @@ public class PlayerWalking : MonoBehaviour
         {
             xAxis = Input.GetAxisRaw("Horizontal");
 
+            if(xAxis < 0)
+            {
+                transform.localScale = new Vector3(1, playerHeight, 1);
+            }
+            else if (xAxis > 0)
+            {
+                transform.localScale = new Vector3(-1, playerHeight, 1);
+            }
+
             if (Input.GetButtonDown("Jump") && onGround)
             {
                 Jump();
+            }
+
+            if(Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            {
+                Dash();
             }
         }
     }
 
     public void SwitchToRobot(PlayerWalking target)
     {
-        this.isCurrentPlayer = false;
+
         this.xAxis = 0f;
+
+        foreach (var character in _movebleCharactersList)
+        {
+            if (character != null) character.isCurrentPlayer = false;
+        }
 
         Input.ResetInputAxes(); 
 
@@ -97,7 +125,22 @@ public class PlayerWalking : MonoBehaviour
 
     void FixedUpdate()
     {
-        _rb.linearVelocity = new Vector2(xAxis * speed, _rb.linearVelocity.y);
+        if (dashTimer > 0)
+        {
+            dashTimer -= Time.fixedDeltaTime;
+            _rb.linearVelocity = new Vector2(dashDirection * dashSpeed, 0f);
+            Debug.Log(dashTimer);
+        }
+        else
+        {
+            _rb.linearVelocity = new Vector2(xAxis * speed, _rb.linearVelocity.y);
+        }
+    }
+
+    void Dash()
+    {
+        dashDirection = xAxis != 0 ? Mathf.Sign(xAxis) : (transform.localScale.x > 0 ? 1f : -1f);
+        dashTimer = dashDuration;
     }
 
     void Jump()

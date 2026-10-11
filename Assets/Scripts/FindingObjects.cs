@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FindingObjects : MonoBehaviour
@@ -12,6 +12,8 @@ public class FindingObjects : MonoBehaviour
     //тот персонаж С которого мы хотим переключится
     private PlayerWalking _fromWho;
 
+    private readonly List<PlayerWalking> _inRange = new List<PlayerWalking>();
+
     private bool _canChange;
 
     void Awake()
@@ -23,6 +25,7 @@ public class FindingObjects : MonoBehaviour
 
     void Update()
     {
+        if (_fromWho == null || !_fromWho.isCurrentPlayer) return;
         if (Input.GetKeyDown(KeyCode.E) && _canAct)
         {
             if (!_puzzleScript.done)
@@ -31,10 +34,30 @@ public class FindingObjects : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Tab) && _canChange && _target != null)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            _fromWho.SwitchToRobot(_target);
+            PlayerWalking target = GetClosestInRange();
+            if (target != null)
+                _fromWho.SwitchToRobot(target);
         }
+    }
+
+    private PlayerWalking GetClosestInRange()
+    {
+        _inRange.RemoveAll(p => p == null); // clean up destroyed objects
+
+        PlayerWalking best = null;
+        float bestDist = float.MaxValue;
+        foreach (var p in _inRange)
+        {
+            float d = ((Vector2)p.transform.position - (Vector2)_fromWho.transform.position).sqrMagnitude;
+            if (d < bestDist)
+            {
+                bestDist = d;
+                best = p;
+            }
+        }
+        return best;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,14 +72,11 @@ public class FindingObjects : MonoBehaviour
             _canAct = true;
         }
 
-        if (collision.CompareTag("Changeble"))
+        if (collision.CompareTag("Player"))
         {
-            _target = collision.GetComponent<PlayerWalking>();
-            if(_target != null && _target != _fromWho)
-            {
-                _canChange = true;
-                Debug.Log("Robot entered");
-            }
+            PlayerWalking other = collision.GetComponentInParent<PlayerWalking>();
+            if (other != null && other != _fromWho && !_inRange.Contains(other))
+                _inRange.Add(other);
         }
     }
 
@@ -72,16 +92,11 @@ public class FindingObjects : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Changeble"))
+        if (other.CompareTag("Player"))
         {
-            PlayerWalking exitingRobot = other.GetComponent<PlayerWalking>();
-            if(exitingRobot == _target)
-            {
-                _target = null;
-                _canChange = false;
-            }
-
-            exitingRobot = null;
+            PlayerWalking exiting = other.GetComponentInParent<PlayerWalking>();
+            if (exiting != null)
+                _inRange.Remove(exiting);
         }
     }
 }
