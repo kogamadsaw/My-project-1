@@ -1708,6 +1708,7 @@ MonoBehaviour:
   _isPauseMenu: 1
   _menu: {fileID: 2980640901242480065}
   _options: {fileID: 6761089135038656843}
+  _authors: {fileID: 6761089135038656843}
 --- !u!1 &8733556773270746606
 GameObject:
   m_ObjectHideFlags: 0

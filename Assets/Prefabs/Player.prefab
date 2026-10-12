@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 6, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4166193396500313625}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 4334783836991956000, guid: b3f0014a6f349c243a02ead69a04a800, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -417,4 +417,9 @@ MonoBehaviour:
   dashSpeed: 0
   dashDuration: 0
   playerHeight: 0
+  _sprite: {fileID: 8183252792286508771}
+  _itPediaSprite: {fileID: 2487832439414339144, guid: 91aafef020e703f498fff1aea65b5b46, type: 3}
+  _BigRobot: {fileID: 887288744, guid: 7f419b121dbdfa04d994376b7fadb90d, type: 3}
+  _FastRobot: {fileID: -4908156243028984811, guid: 7f419b121dbdfa04d994376b7fadb90d, type: 3}
+  _PenguinJpg: {fileID: 4334783836991956000, guid: b3f0014a6f349c243a02ead69a04a800, type: 3}
   robot: 0

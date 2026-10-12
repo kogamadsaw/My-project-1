@@ -82,11 +82,11 @@ public class PlayerWalking : MonoBehaviour
 
             if(xAxis < 0)
             {
-                transform.localScale = new Vector3(1, _robotSettings.playerHeight, 1);
+                transform.localScale = new Vector3(-1, _robotSettings.playerHeight, 1);
             }
             else if (xAxis > 0)
             {
-                transform.localScale = new Vector3(-1, _robotSettings.playerHeight, 1);
+                transform.localScale = new Vector3(1, _robotSettings.playerHeight, 1);
             }
 
             if (Input.GetButtonDown("Jump") && onGround)
