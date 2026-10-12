@@ -15,7 +15,6 @@ public class MoveBetweenLayers : MonoBehaviour
     [SerializeField] private SpriteRenderer _playerSprite;
     private int _playerLayer;
 
-
     SpriteRenderer[] _allSprites;
 
     void Awake()

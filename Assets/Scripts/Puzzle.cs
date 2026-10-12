@@ -76,29 +76,6 @@ public class Puzzle : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (done)
-        {
-            if (_toMove)
-            {
-                if (_isXAxis)
-                {
-                    if (_isPlusDirection) _gameObjectToAct.transform.position += new Vector3(_howMuch, 0, 0);
-                    else _gameObjectToAct.transform.position += new Vector3(-_howMuch, 0, 0);
-                }
-                else
-                {
-                    if (_isPlusDirection) _gameObjectToAct.transform.position += new Vector3(0, _howMuch, 0);
-                    else _gameObjectToAct.transform.position += new Vector3(0, -1 * _howMuch, 0);
-                }
-            }
-            else if (_toDelete) Destroy(_gameObjectToAct);
-        }
-    }
-
-
-
     public void StartPuzzle()
     {
         canDelete = false;
@@ -106,6 +83,7 @@ public class Puzzle : MonoBehaviour
         _puzleCanvas.enabled = true;
 
         player.isCurrentPlayer = false;
+        player.xAxis = 0;
 
         _correctCount = _correctToPass;
 
@@ -128,6 +106,24 @@ public class Puzzle : MonoBehaviour
         player.isCurrentPlayer = true;
         _puzleCanvas.enabled = false;
         canDelete = true;
+
+        if (done)
+        {
+            if (_toMove)
+            {
+                if (_isXAxis)
+                {
+                    if (_isPlusDirection) _gameObjectToAct.transform.position += new Vector3(_howMuch, 0, 0);
+                    else _gameObjectToAct.transform.position += new Vector3(-1 * _howMuch, 0, 0);
+                }
+                else
+                {
+                    if (_isPlusDirection) _gameObjectToAct.transform.position += new Vector3(0, -1 * _howMuch, 0);
+                    else _gameObjectToAct.transform.position += new Vector3(0, _howMuch, 0);
+                }
+            }
+            else if (_toDelete) Destroy(_gameObjectToAct);
+        }
     }
 
     private IEnumerator TimerTick()

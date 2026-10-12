@@ -1,13 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Video;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class FunkyJPG : MonoBehaviour
 {
     [SerializeField] private GameObject _funny;
     [SerializeField] private GameObject _skibidi;
     [SerializeField] private VideoPlayer _videoPlayer;
-
+    [SerializeField] private Canvas _canvas;
     [SerializeField] private GameObject _afterHappy;
 
 
@@ -15,6 +16,7 @@ public class FunkyJPG : MonoBehaviour
 
     private void Awake()
     {
+        _canvas.enabled = false;
         _skibidi.SetActive(false);
         _afterHappy.SetActive(false);
 
@@ -41,6 +43,8 @@ public class FunkyJPG : MonoBehaviour
 
     private void TriggerScreamer()
     {
+        _canvas.enabled = true;
+
         if (_videoPlayer.targetTexture != null)
         {
             _videoPlayer.targetTexture.Release();
@@ -52,7 +56,7 @@ public class FunkyJPG : MonoBehaviour
 
     void OnVideoFinished(VideoPlayer vp)
     {
-        Destroy(_funny);
+        if (_funny != null) Destroy(_funny);
         Destroy(_skibidi);
 
         _afterHappy.SetActive(true);

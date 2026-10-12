@@ -8,7 +8,7 @@ public class PlayerWalking : MonoBehaviour
     private Rigidbody2D _rb;
 
     //input axis variable
-    private float xAxis;
+    public float xAxis;
 
     //is player on ground
     public bool onGround;

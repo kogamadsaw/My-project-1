@@ -300,7 +300,7 @@ MonoBehaviour:
   _timerText: {fileID: 1429086558217109985}
   _time: 20
   _inputField: {fileID: 6106110579679046099}
-  _alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789!@#$%^&*()_+-=|;'<>,.[]{}
+  _alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789!@#$%^&*()_+-=;'<>,.[]{}
   _numbers: 123456789
   _signs: +-
   done: 0
