@@ -324,6 +324,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1957089398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1496179755019306984, guid: 2c7ea2565dd0ad649b4cdbf8bff5ab66, type: 3}
+  m_PrefabInstance: {fileID: 610003753807674245}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &610003753807674245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -332,6 +337,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1390294079471166622, guid: 2c7ea2565dd0ad649b4cdbf8bff5ab66, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchToAutors
+      objectReference: {fileID: 0}
     - target: {fileID: 1777971687303565079, guid: 2c7ea2565dd0ad649b4cdbf8bff5ab66, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -416,6 +425,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 8539420754950427016, guid: 2c7ea2565dd0ad649b4cdbf8bff5ab66, type: 3}
+      propertyPath: _autors
+      value: 
+      objectReference: {fileID: 1957089398}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

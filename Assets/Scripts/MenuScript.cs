@@ -11,11 +11,13 @@ public class MenuScript : MonoBehaviour
 
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _options;
+    [SerializeField] private GameObject _autors;
 
     private void Awake()
     {
         _canvas = GetComponent<Canvas>();
 
+        _autors.SetActive(false);
         _options.SetActive(false);
         _menu.SetActive(true);
 
@@ -50,8 +52,15 @@ public class MenuScript : MonoBehaviour
         _menu.SetActive(false);
     }
 
+    public void SwitchToAutors()
+    {
+        _autors.SetActive(true);
+        _menu.SetActive(false);
+    }
+
     public void SwitchToMainMenu()
     {
+        _autors.SetActive(false);
         _options.SetActive(false);
         _menu.SetActive(true);
     }

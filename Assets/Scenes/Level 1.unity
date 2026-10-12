@@ -6735,7 +6735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &998814989
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7462,7 +7462,6 @@ MonoBehaviour:
   _funny: {fileID: 998814988}
   _skibidi: {fileID: 1338834476}
   _videoPlayer: {fileID: 1338834478}
-  _canvas: {fileID: 1479707340}
   _afterHappy: {fileID: 160082221}
   _DemonBaluetsyaSound: {fileID: 8300000, guid: 35ffc74eb7a9d3b488ee0f1b06ea9b24, type: 3}
 --- !u!82 &1076717130
