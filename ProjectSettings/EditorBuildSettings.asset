@@ -17,5 +17,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 3.unity
     guid: 9450b141f086dd9428f82cedbb904bea
+  - enabled: 1
+    path: Assets/Scenes/skibidi 2.unity
+    guid: 2ca3ad3a283f88c469bb86a5fd95c34b
+  - enabled: 1
+    path: Assets/Scenes/skibidi 1.unity
+    guid: 3ef418b5241b8cb42be55ee52cf7689c
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: b6dda5d697f970341be73a5c9f64d00c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

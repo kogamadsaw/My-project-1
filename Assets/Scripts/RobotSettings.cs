@@ -73,7 +73,7 @@ public class RobotSettings : MonoBehaviour
 
             case robotType.IT_Pedia:
                 speed = 6;
-                jumpForce = 8;
+                jumpForce = 4;
 
                 canDash = false;
 

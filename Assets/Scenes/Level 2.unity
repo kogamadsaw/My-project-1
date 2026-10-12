@@ -8596,6 +8596,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 84801776541946839, guid: dbe045388ad5fc449abff19970d1859a, type: 3}
+      propertyPath: robot
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1062680824756505922, guid: dbe045388ad5fc449abff19970d1859a, type: 3}
       propertyPath: _vCam
       value: 
