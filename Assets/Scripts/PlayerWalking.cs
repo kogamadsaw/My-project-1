@@ -26,9 +26,13 @@ public class PlayerWalking : MonoBehaviour
     private static List<PlayerWalking> _movebleCharactersList = new List<PlayerWalking>();
     private static int currentPlayer = 0;
 
+    private AudioSource _audioPlayer;
+    [SerializeField] private AudioClip _jumpSound;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _audioPlayer = GetComponent<AudioSource>();
         if (_rb == null) Debug.LogError("Add Rigidbody2D to " + gameObject);
 
         if (_movebleCharactersList.Count > 0 && _movebleCharactersList[0] == null)
@@ -38,6 +42,14 @@ public class PlayerWalking : MonoBehaviour
         }
 
         _movebleCharactersList.Add(this);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if(_audioPlayer != null && clip != null)
+        {
+            _audioPlayer.PlayOneShot(clip);
+        }
     }
 
     void Start()
@@ -166,5 +178,7 @@ public class PlayerWalking : MonoBehaviour
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0f);
 
         _rb.AddForce(Vector2.up * _robotSettings.jumpForce, ForceMode2D.Impulse);
+
+        PlaySound(_jumpSound);
     }
 }

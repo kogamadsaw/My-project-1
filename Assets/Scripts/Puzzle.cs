@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Puzzle : MonoBehaviour
@@ -61,6 +62,8 @@ public class Puzzle : MonoBehaviour
     [SerializeField] private bool _isXAxis;
     [SerializeField] private bool _isPlusDirection;
     [SerializeField] private float _howMuch;
+    [Header("Sounds")]
+    [SerializeField] private AudioClip _TaskComplete;
 
 
     void Awake()
@@ -123,6 +126,7 @@ public class Puzzle : MonoBehaviour
                 }
             }
             else if (_toDelete) Destroy(_gameObjectToAct);
+            player.PlaySound(_TaskComplete);
         }
     }
 

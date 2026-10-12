@@ -10,6 +10,8 @@ public class FunkyJPG : MonoBehaviour
     [SerializeField] private VideoPlayer _videoPlayer;
     [SerializeField] private Canvas _canvas;
     [SerializeField] private GameObject _afterHappy;
+    private AudioSource _DemonBaluetsya;
+    [SerializeField] private AudioClip _DemonBaluetsyaSound;
 
 
     private GameObject[] _birthdayGuy;
@@ -21,6 +23,7 @@ public class FunkyJPG : MonoBehaviour
         _afterHappy.SetActive(false);
 
         _birthdayGuy = GameObject.FindGameObjectsWithTag("Player");
+        _DemonBaluetsya = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -56,6 +59,7 @@ public class FunkyJPG : MonoBehaviour
 
     void OnVideoFinished(VideoPlayer vp)
     {
+        _DemonBaluetsya.PlayOneShot(_DemonBaluetsyaSound);
         if (_funny != null) Destroy(_funny);
         Destroy(_skibidi);
 
