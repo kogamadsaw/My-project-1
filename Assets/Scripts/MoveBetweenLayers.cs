@@ -20,11 +20,17 @@ public class MoveBetweenLayers : MonoBehaviour
 
     void Awake()
     {
-        gameObject.layer = LayerMask.NameToLayer("Foreground");
-        foreach (Transform child in transform)
+        if (gameObject.layer == LayerMask.NameToLayer("Default"))
         {
-            child.gameObject.layer = LayerMask.NameToLayer("Foreground");
+            gameObject.layer = LayerMask.NameToLayer("Foreground");
+            foreach (Transform child in transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Foreground");
+            }
         }
+
+        if (gameObject.layer == LayerMask.NameToLayer("Foreground")) _isAtForeground = true;
+        else _isAtForeground = false;
 
         if (_playerSprite == null) Debug.LogError("Add player visual");
 
@@ -85,19 +91,19 @@ public class MoveBetweenLayers : MonoBehaviour
         {
             GameObject obj = sprite.gameObject;
 
-            if ((obj.layer == LayerMask.NameToLayer("Foreground") || obj.layer == LayerMask.NameToLayer("Door")))
+            if (obj.layer == LayerMask.NameToLayer("Foreground") || obj.layer == LayerMask.NameToLayer("Door"))
             {
                 Transform parent = obj.transform.parent;
 
                 if (obj.CompareTag("Player") || parent.CompareTag("Player")) sprite.sortingOrder = targetLayer + 1;
-                else if (obj.CompareTag("Wall") || parent.CompareTag("Wall")) sprite.sortingOrder = targetLayer - 1;
+                else if (obj.CompareTag("Background") || parent.CompareTag("Background")) sprite.sortingOrder = targetLayer - 1;
                 else sprite.sortingOrder = targetLayer;
 
-                if (parent == null || !(parent.GetComponentInParent<PlayerWalking>() != null && parent.GetComponentInParent<PlayerWalking>().isCurrentPlayer))
-                {
-                    Color currentColor = sprite.color;
-                    sprite.color = new Color(currentColor.r, currentColor.g, currentColor.b, targetAlpha);
-                }
+                Color currentColor = sprite.color;
+                sprite.color = new Color(currentColor.r, currentColor.g, currentColor.b, targetAlpha);
+
+                if (obj.layer == LayerMask.NameToLayer("Door")) sprite.color = new Color(currentColor.r, currentColor.g, currentColor.b, targetAlpha);
+                else if (obj.layer == LayerMask.NameToLayer("Foreground")) sprite.enabled = isVisible;
             }
         }
     }

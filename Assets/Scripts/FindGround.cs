@@ -9,7 +9,7 @@ public class FindGround : MonoBehaviour
         _player = GetComponentInParent<PlayerWalking>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Ground") && collision.gameObject.layer == gameObject.layer) _player.onGround = true;
     }

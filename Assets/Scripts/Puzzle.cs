@@ -52,7 +52,17 @@ public class Puzzle : MonoBehaviour
         InputTask,
         MathTask
     }
-    
+
+    [Header("Act options")]
+    [SerializeField] private GameObject _gameObjectToAct;
+    [SerializeField] private bool _toDelete;
+    [Header("Move options")]
+    [SerializeField] private bool _toMove;
+    [SerializeField] private bool _isXAxis;
+    [SerializeField] private bool _isPlusDirection;
+    [SerializeField] private float _howMuch;
+
+
     void Awake()
     {
         _puzleCanvas = GetComponentInChildren<Canvas>();
@@ -65,6 +75,29 @@ public class Puzzle : MonoBehaviour
             _terminalNumber.text = _terminalNumberText;
         }
     }
+
+    private void Update()
+    {
+        if (done)
+        {
+            if (_toMove)
+            {
+                if (_isXAxis)
+                {
+                    if (_isPlusDirection) _gameObjectToAct.transform.position += new Vector3(_howMuch, 0, 0);
+                    else _gameObjectToAct.transform.position += new Vector3(-_howMuch, 0, 0);
+                }
+                else
+                {
+                    if (_isPlusDirection) _gameObjectToAct.transform.position += new Vector3(0, _howMuch, 0);
+                    else _gameObjectToAct.transform.position += new Vector3(0, -1 * _howMuch, 0);
+                }
+            }
+            else if (_toDelete) Destroy(_gameObjectToAct);
+        }
+    }
+
+
 
     public void StartPuzzle()
     {

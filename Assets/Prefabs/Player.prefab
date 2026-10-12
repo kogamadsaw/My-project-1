@@ -380,7 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MoveBetweenLayers
   _zForeground: 0
   _zBackground: 2
-  _fadeAlpha: 0.1
+  _fadeAlpha: 0.2
   canChangeLayer: 0
   _playerSprite: {fileID: 8183252792286508771}
 --- !u!114 &1062680824756505922

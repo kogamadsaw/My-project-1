@@ -11,7 +11,7 @@ public class PlayerWalking : MonoBehaviour
     private float xAxis;
 
     //is player on ground
-    [HideInInspector] public bool onGround;
+    public bool onGround;
 
     //dash variables
     private float dashTimer;
