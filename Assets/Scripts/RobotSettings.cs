@@ -17,6 +17,14 @@ public class RobotSettings : MonoBehaviour
     //Height variables
     [HideInInspector] public float playerHeight;
 
+    //Player sprite
+    [SerializeField] private SpriteRenderer _sprite;
+
+    [SerializeField] private Sprite _itPediaSprite;
+    [SerializeField] private Sprite _BigRobot;
+    [SerializeField] private Sprite _FastRobot;
+    [SerializeField] private Sprite _PenguinJpg;
+
     public enum robotType
     {
         Default,
@@ -39,6 +47,7 @@ public class RobotSettings : MonoBehaviour
                 canDash = false;
 
                 playerHeight = 2f;
+                _sprite.sprite = _PenguinJpg;
                 break;
             case robotType.Heavy:
                 speed = 2;
@@ -47,6 +56,7 @@ public class RobotSettings : MonoBehaviour
                 canDash = false;
 
                 playerHeight = 2f;
+                _sprite.sprite = _BigRobot;
                 break;
 
             case robotType.Fast:
@@ -58,6 +68,7 @@ public class RobotSettings : MonoBehaviour
                 dashDuration = 0.2f;
 
                 playerHeight = 2f;
+                _sprite.sprite = _FastRobot;
                 break;
 
             case robotType.IT_Pedia:
@@ -67,6 +78,7 @@ public class RobotSettings : MonoBehaviour
                 canDash = false;
 
                 playerHeight = 1f;
+                _sprite.sprite = _itPediaSprite;
                 break;
 
             default:
