@@ -11,14 +11,12 @@ public class MenuScript : MonoBehaviour
 
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _options;
-    [SerializeField] private GameObject _authors;
 
     private void Awake()
     {
         _canvas = GetComponent<Canvas>();
 
         _options.SetActive(false);
-        _authors.SetActive(false);
         _menu.SetActive(true);
 
         if (_isPauseMenu)
@@ -39,28 +37,23 @@ public class MenuScript : MonoBehaviour
     //main menu options
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     public void SwitchToOptions()
     {
         _options.SetActive(true);
-        _authors.SetActive(false);
         _menu.SetActive(false);
     }
 
     public void SwitchToMainMenu()
     {
         _options.SetActive(false);
-        _authors.SetActive(false);
         _menu.SetActive(true);
-    }
-
-    public void SwitchToAuthors()
-    {
-        _authors.SetActive(true);
-        _menu.SetActive(false);
-        _options.SetActive(false);
     }
 
     //pause menu options

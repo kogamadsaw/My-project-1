@@ -8,7 +8,6 @@ public class FunkyJPG : MonoBehaviour
     [SerializeField] private GameObject _funny;
     [SerializeField] private GameObject _skibidi;
     [SerializeField] private VideoPlayer _videoPlayer;
-    [SerializeField] private Canvas _canvas;
     [SerializeField] private GameObject _afterHappy;
     private AudioSource _DemonBaluetsya;
     [SerializeField] private AudioClip _DemonBaluetsyaSound;
@@ -18,7 +17,6 @@ public class FunkyJPG : MonoBehaviour
 
     private void Awake()
     {
-        _canvas.enabled = false;
         _skibidi.SetActive(false);
         _afterHappy.SetActive(false);
 
@@ -46,8 +44,6 @@ public class FunkyJPG : MonoBehaviour
 
     private void TriggerScreamer()
     {
-        _canvas.enabled = true;
-
         if (_videoPlayer.targetTexture != null)
         {
             _videoPlayer.targetTexture.Release();
