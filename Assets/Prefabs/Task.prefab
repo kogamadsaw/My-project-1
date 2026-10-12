@@ -311,6 +311,7 @@ MonoBehaviour:
   _isXAxis: 0
   _isPlusDirection: 0
   _howMuch: 0
+  _TaskComplete: {fileID: 8300000, guid: 4458132a4f038db48a7db89aea3a580d, type: 3}
 --- !u!1 &986380708129401985
 GameObject:
   m_ObjectHideFlags: 0
