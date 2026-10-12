@@ -17,7 +17,6 @@ public class MenuScript : MonoBehaviour
     {
         _canvas = GetComponent<Canvas>();
 
-        _autors.SetActive(false);
         _options.SetActive(false);
         _menu.SetActive(true);
 
@@ -25,6 +24,10 @@ public class MenuScript : MonoBehaviour
         {
             _canvas.enabled = false;
             canOpenMenu = true;
+        }
+        else
+        {
+            _autors.SetActive(false);
         }
     }
 
