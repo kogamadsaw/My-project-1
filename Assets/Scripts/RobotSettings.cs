@@ -61,7 +61,7 @@ public class RobotSettings : MonoBehaviour
 
             case robotType.Fast:
                 speed = 8;
-                jumpForce = 9;
+                jumpForce = 11;
 
                 canDash = true;
                 dashSpeed = 20f;

@@ -63,7 +63,8 @@ public class MenuScript : MonoBehaviour
 
     public void SwitchToMainMenu()
     {
-        _autors.SetActive(false);
+        if (!_isPauseMenu) _autors.SetActive(false);
+            
         _options.SetActive(false);
         _menu.SetActive(true);
     }

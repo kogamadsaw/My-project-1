@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5505276213430497431}
   - component: {fileID: 1381509608002271780}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   _isPauseMenu: 1
   _menu: {fileID: 2980640901242480065}
   _options: {fileID: 6761089135038656843}
-  _authors: {fileID: 6761089135038656843}
+  _autors: {fileID: 0}
 --- !u!1 &8733556773270746606
 GameObject:
   m_ObjectHideFlags: 0
